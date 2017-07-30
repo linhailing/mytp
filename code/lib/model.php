@@ -8,19 +8,16 @@
 
 namespace code\lib;
 use code\lib\conf;
+use Medoo\Medoo;
 /***
  * 数据库操作类
  * @package code\lib
  */
-class model extends \PDO
+class model extends Medoo
 {
     public function __construct()
     {
-        $data = conf::getAll('database');
-        try{
-            parent::__construct($data['DNS'], $data['USERNAME'], $data['PASSWD']);
-        }catch (\PDOException $e){
-            p($e->getMessage());
-        }
+        $options = conf::getAll('database');
+        parent::__construct($options);
     }
 }

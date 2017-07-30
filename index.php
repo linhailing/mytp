@@ -15,14 +15,19 @@ defined('MODULE') or define('MODULE', 'app');
 
 //是否开启调试模式
 defined('DEBUG') or define('DEBUG', true);
+
+include "vendor/autoload.php";
 if(DEBUG){
+    $whoops = new \Whoops\Run;
+    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+    $whoops->register();
     ini_set('display_error', 'On');
 }else{
     ini_set('display_error', 'Off');
 }
-
 //加载公共类库文件
 include CODE.'common/func.php';
+
 
 //加载核心库文件
 include CODE."tp.php";

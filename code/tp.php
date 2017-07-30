@@ -68,10 +68,23 @@ class tp{
      */
     public  function display($file)
     {
-        $viewPath = APP."views".DS.$file;
+//        $viewPath = APP."views".DS.$file;
+//        if(is_file($viewPath)){
+//            extract($this->assgin);
+//            include $viewPath;
+//        }else{
+//            throw new \Exception("找不到视图文件. ".$viewPath);
+//        }
+        $viewPath = APP.'views'.DS.$file;
         if(is_file($viewPath)){
-            extract($this->assgin);
-            include $viewPath;
+            $loader = new \Twig_Loader_Filesystem(APP.'views');
+            $twig = new \Twig_Environment($loader, array(
+                'cache' => TP."cache/templates/",
+                'debug' => DEBUG,
+            ));
+            $template = $twig->load($file);
+            $template->display($this->assgin?$this->assgin:[]);
+            //$twig->render($file, array($this->assgin));
         }else{
             throw new \Exception("找不到视图文件. ".$viewPath);
         }

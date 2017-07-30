@@ -8,7 +8,7 @@
 
 namespace app\controllers;
 use \code\tp;
-use \code\lib\model;
+use app\models\TestModel;
 use \code\lib\conf;
 
 class IndexController extends tp
@@ -26,11 +26,8 @@ class IndexController extends tp
         $this->display("index\index.html");
     }
     public function  Test(){
-        //取出路由的配置项
-//        p(conf::get("CONTRO", 'route'));
-        $model = new model();
-        $sql = "select * from test";
-        $res = $model->query($sql);
-        p($res->fetchAll());
+        $this->assgin("title", "index-test");
+        $this->assgin("name", "henry111");
+        $this->display('index/test.html');
     }
 }
